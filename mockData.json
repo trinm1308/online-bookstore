@@ -1,0 +1,14 @@
+{
+  "id": "1",
+  "name": "Nha gia kim",
+  "publishedDate": "10-2013",
+  "image": "/images/nha-gia-kim.jpeg",
+  "price": 120,
+  "oldPrice": 130,
+  "countInStock": 10,
+  "author": "Paulo Coelho",
+  "publisher": "Nhà Xuất Bản Văn Học",
+  "rating": 4.5,
+  "numReviews": 10,
+  "description": "high quality product"
+}
