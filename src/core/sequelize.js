@@ -3,15 +3,15 @@ const BookModel = require("../models/book");
 const AuthorModel = require("../models/author");
 
 const fs = require("fs");
-let CONFIG_RAW = fs.readFileSync("dbConfig.json");
-let CONFIG = JSON.parse(CONFIG_RAW);
+let CONFIG_RAW = fs.readFileSync("config.json");
+let CONFIG = JSON.parse(CONFIG_RAW).database;
 
 const host = CONFIG.host;
 const db = CONFIG.database;
-const username = CONFIG.username;
+const user = CONFIG.user;
 const password = CONFIG.password;
 
-const sequelize = new Sequelize(db, username, password, {
+const sequelize = new Sequelize(db, user, password, {
   host: host,
   dialect: "postgres",
 });
