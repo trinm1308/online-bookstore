@@ -37,6 +37,7 @@ sequelize.sync().then(() => {
 });
 
 module.exports = {
+  sequelize,
   Sequelize,
   Book,
   Author,

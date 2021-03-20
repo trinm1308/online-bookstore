@@ -13,8 +13,6 @@ module.exports = (sequelize, type) => {
     countInStock: type.INTEGER,
     author: type.STRING,
     publisher: type.STRING,
-    rating: type.FLOAT,
-    numReviews: type.INTEGER,
     description: type.TEXT,
   });
 };
