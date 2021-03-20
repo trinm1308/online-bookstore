@@ -6,26 +6,26 @@ router.get('/', getAllAuthors)
 router.get('/:id', getAuthor)
 router.post('/', addAuthor)
 router.put('/', updateAuthor)
-router.delete('/', deleteAuthor)
+router.delete('/:id', deleteAuthor)
 
 async function getAllAuthors(req, res){
-    res.send(await service.getAllAuthors())
+    res.send(await service.getAll())
 }
 
 async function getAuthor(req, res){
-    res.send(await service.getAuthor(req.params.id))
+    res.send(await service.getOne(req.params.id))
 }
 
 async function addAuthor(req, res){
-    res.send(await service.addAuthor(req.body))
+    res.send(await service.addOne(req.body))
 }
 
 async function updateAuthor(req, res){
-    res.send(await service.updateAuthor(req.body))
+    res.send(await service.updateOne(req.body))
 }
 
 async function deleteAuthor(req, res){
-    res.send(await service.deleteAuthor(req.params.id))
+    res.sendStatus(await service.deleteOne(req.params.id))
 }
 
 module.exports = router

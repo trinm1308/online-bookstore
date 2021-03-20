@@ -1,6 +1,6 @@
 const { QueryTypes } = require("sequelize");
-const { Sequelize } = require("../../../core/sequelize");
-const { Book } = require("../../../core/sequelize");
+const { Sequelize } = require("../../../common/core/sequelize");
+const { Book } = require("../../../common/core/sequelize");
 
 class Service {
   async getAllBooks() {

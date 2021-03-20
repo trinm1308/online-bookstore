@@ -1,2 +1,2 @@
-const { app } = require("./core/express");
+const { app } = require("./common/core/express");
 

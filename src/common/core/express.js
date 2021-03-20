@@ -5,10 +5,10 @@ var cors = require('cors')
 app.use(cors())
 app.use(express.json());
 
-const browse = require("../api/browse/router");
+const browse = require("../../api/browse/router");
 app.use("/browse", browse);
 
-const manage = require("../api/manage/router");
+const manage = require("../../api/manage/router");
 app.use("/manage", manage);
 
 const fs = require("fs");

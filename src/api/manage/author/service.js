@@ -1,32 +1,17 @@
 const { QueryTypes } = require("sequelize");
-const { Sequelize } = require("../../../core/sequelize");
-const { Author } = require("../../../core/sequelize");
+const { Sequelize } = require("../../../common/core/sequelize");
+const { Author } = require("../../../common/core/sequelize");
+const Service = require("../../../common/service");
 
-class Service {
-  async getAllAuthors() {
-    return await Author.findAll();
-  }
-
-  async getAuthor(id) {
-    return await Author.findAll({ where: { id: id } });
-  }
-
-  async addAuthor(author) {
-    return await Author.create(author);
-  }
-
-  async updateAuthor(author) {
-    return await Author.update(author);
-  }
-
+class AuthorService extends Service {
   async deleteAuthor(id) {
-    return await Author.destroy({
+    await Author.destroy({
       where: {
         id: id,
       },
     });
+    return 200;
   }
-  
 }
 
-module.exports = new Service();
+module.exports = new AuthorService(Author);

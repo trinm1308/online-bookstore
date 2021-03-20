@@ -1,31 +1,31 @@
 const express = require('express')
-const book = express.Router()
+const router = express.Router()
 const service = require('./service') 
 
-book.get('/', getAllBooks)
-book.get('/:id', getBook)
-book.post('/', addBook)
-book.put('/', updateBook)
-book.delete('/', deleteBook)
+router.get('/', getAllBooks)
+router.get('/:id', getBook)
+router.post('/', addBook)
+router.put('/', updateBook)
+router.delete('/:id', deleteBook)
 
 async function getAllBooks(req, res){
-    res.send(await service.getAllBooks())
+    res.send(await service.getAll())
 }
 
 async function getBook(req, res){
-    res.send(await service.getBook(req.params.id))
+    res.send(await service.getOne(req.params.id))
 }
 
 async function addBook(req, res){
-    res.send(await service.addBook(req.body))
+    res.send(await service.addOne(req.body))
 }
 
 async function updateBook(req, res){
-    res.send(await service.updateBook(req.body))
+    res.send(await service.updateOne(req.body))
 }
 
 async function deleteBook(req, res){
-    res.send(await service.deleteBook(req.params.id))
+    res.sendStatus(await service.deleteOne(req.params.id))
 }
 
-module.exports = book
+module.exports = router

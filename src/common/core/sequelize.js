@@ -1,7 +1,8 @@
 const { Sequelize } = require("sequelize");
-const BookModel = require("../models/book");
-const AuthorModel = require("../models/author");
-const AccountModel = require("../models/account");
+const BookModel = require("../../models/book");
+const AuthorModel = require("../../models/author");
+const AccountModel = require("../../models/account");
+const RatingModel = require("../../models/rating")
 
 const fs = require("fs");
 let CONFIG_RAW = fs.readFileSync("config.json");
@@ -29,6 +30,7 @@ const sequelize = new Sequelize(db, user, password, {
 const Book = BookModel(sequelize, Sequelize);
 const Author = AuthorModel(sequelize, Sequelize)
 const Account = AccountModel(sequelize, Sequelize)
+const Rating = RatingModel(sequelize, Sequelize)
 
 sequelize.sync().then(() => {
   console.log(`Database & Tables created!`);
@@ -38,5 +40,6 @@ module.exports = {
   Sequelize,
   Book,
   Author,
-  Account
+  Account,
+  Rating
 };

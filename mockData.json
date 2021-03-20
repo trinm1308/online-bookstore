@@ -1,14 +1,33 @@
-{
-  "id": "1",
-  "name": "Nha gia kim",
-  "publishedDate": "10-2013",
-  "image": "/images/nha-gia-kim.jpeg",
-  "price": 120,
-  "oldPrice": 130,
-  "countInStock": 10,
-  "author": "Paulo Coelho",
-  "publisher": "Nhà Xuất Bản Văn Học",
-  "rating": 4.5,
-  "numReviews": 10,
-  "description": "high quality product"
-}
+[
+  {
+    "Book": {
+      "title": "Industrial Society And Its Future",
+      "publishedDate": "19/Sep/1995",
+      "image": "img\\Book\\industrial-society-and-its-future.jpg",
+      "price": 120,
+      "oldPrice": 130,
+      "countInStock": 100,
+      "author": "Theodore John Kaczynski",
+      "publisher": "Theodore John Kaczynski",
+      "rating": 5,
+      "numReviews": 10,
+      "description": "In 1971 Dr. Theodore Kaczynski rejected modern society and moved to a primitive cabin in the woods of Montana. There, he began building bombs, which he sent to professors and executives to express his disdain for modern society, and to work on his magnum opus, Industrial Society and Its Future, forever known to the world as the Unabomber Manifesto. Responsible for three deaths and more than twenty casualties over two decades, he was finally identifed and apprehended when his brother recognized his writing style while reading the 'Unabomber Manifesto.' The piece, written under the pseudonym FC (Freedom Club) was published in the New York Times after his promise to cease the bombing if a major publication printed it in its entirety."
+    }
+  },
+  {
+    "Account": {
+      "username": "testerman4",
+      "password": "123456",
+      "email": "testytest@test.com",
+      "fullName": "Tester Testing Testerman"
+    }
+  },
+  {
+    "Author": {
+      "name": "Theodore John Kaczynski",
+      "birthday": "22/May/1942",
+      "image": "img\\Author\\Theodore_Kaczynski.jpg",
+      "info": "Theodore John Kaczynski (/kəˈzɪnski/ kə-ZIN-skee, born May 22, 1942), also known as the Unabomber (/ˈjuːnəbɒmər/), is an American domestic terrorist, anarchist and former mathematics professor.[2][3][4] He was a mathematics prodigy, but abandoned his academic career in 1969 to pursue a more primitive life.[5] Between 1978 and 1995, he killed three people and injured 23 others in a nationwide bombing campaign against people he believed to be advancing modern technology and the destruction of the environment. He issued a social critique opposing industrialization and advocating a nature-centered form of anarchism.[6]"
+    }
+  }
+]

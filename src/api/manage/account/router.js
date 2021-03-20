@@ -3,31 +3,31 @@ const router = express.Router()
 const service = require('./service') 
 
 router.get('/', getAllAccounts)
-router.get('/:id', getAccount)
+router.get('/:username', getAccount)
 router.post('/', addAccount)
 router.put('/', updateAccount)
-router.delete('/', deleteAccount)
+router.delete('/:username', deleteAccount)
 
 router.post('/login', login)
 
 async function getAllAccounts(req, res){
-    res.send(await service.getAllAccounts())
+    res.send(await service.getAll())
 }
 
 async function getAccount(req, res){
-    res.send(await service.getAccount(req.params.id))
+    res.send(await service.getOne(req.params.username))
 }
 
 async function addAccount(req, res){
-    res.send(await service.addAccount(req.body))
+    res.send(await service.addOne(req.body))
 }
 
 async function updateAccount(req, res){
-    res.send(await service.updateAccount(req.body))
+    res.send(await service.updateOne(req.body))
 }
 
 async function deleteAccount(req, res){
-    res.send(await service.deleteAccount(req.params.id))
+    res.sendStatus(await service.deleteOne(req.params.username))
 }
 
 async function login(req, res){
