@@ -4,9 +4,13 @@ const { Account } = require("../../../common/core/sequelize");
 const Service = require("../../../common/service");
 
 class AccountService extends Service {
+  async updateAccount(account) {
+    await Account.update(account, { where: { username: account.username } });
+    return 200;
+  }
   async deleteOne(username) {
     await Account.destroy({ where: { username: username } });
-    return 200
+    return 200;
   }
 
   async login(account) {

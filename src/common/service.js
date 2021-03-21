@@ -18,9 +18,8 @@ class Service {
   }
 
   async updateOne(object) {
-    return await this.model.update(object);
+    return await this.model.update(object, { where: { id: object.id } });
   }
-
 }
 
 module.exports = Service;

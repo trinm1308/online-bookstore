@@ -23,7 +23,7 @@ async function addAccount(req, res){
 }
 
 async function updateAccount(req, res){
-    res.send(await service.updateOne(req.body))
+    res.send(await service.updateAccount(req.body))
 }
 
 async function deleteAccount(req, res){
