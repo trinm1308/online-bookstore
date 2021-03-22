@@ -19,7 +19,7 @@ async function getAll(req, res) {
 
 async function getOne(req, res) {
   try {
-    const respond = await service.getOne(req.params.username)
+    const respond = await service.getOne(req.params.id)
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
