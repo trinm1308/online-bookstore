@@ -16,12 +16,13 @@ class AccountService extends Service {
   async login(account) {
     const username = account.username;
     const query = await Account.findByPk(username);
+    if (query == null) return { status: 200, message: "Account doesnt exist" }; //
     if (
       Account.encryptPassword(account.password, query.getDataValue("salt")) ===
       query.getDataValue("password")
     ) {
-      return true;
-    } else return false;
+      return { status: 200, message: "Login Succ" }; //Succ;
+    } else return { status: 401, message: "Incorrect Password" }; //Password doesnt match;
   }
 }
 
