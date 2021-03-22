@@ -12,6 +12,14 @@ class RatingService extends Service {
     });
     return { status: 200, message: result };
   }
+  async getAllReviewsOfBook(productId) {
+    const result = await Rating.findAll({
+      where: {
+        productId: productId,
+      },
+    });
+    return { status: 200, message: result };
+  }
 }
 
 module.exports = new RatingService(Rating);

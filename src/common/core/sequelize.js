@@ -3,29 +3,17 @@ const BookModel = require("../../models/book");
 const AuthorModel = require("../../models/author");
 const AccountModel = require("../../models/account");
 const RatingModel = require("../../models/rating")
+require("dotenv").config();
 
-const fs = require("fs");
-let CONFIG_RAW = fs.readFileSync("config.json");
-let CONFIG = JSON.parse(CONFIG_RAW).database;
-
-const host = CONFIG.host;
-const db = CONFIG.database;
-const user = CONFIG.user;
-const password = CONFIG.password;
+const host = process.env.DB_HOST;
+const db = process.env.DATABASE;
+const user = process.env.DB_USER;
+const password = process.env.DB_PASSWORD;
 
 const sequelize = new Sequelize(db, user, password, {
   host: host,
   dialect: "postgres",
 });
-
-//Conncetion test works but theres some weird warning from npm
-//Assume connection is established and move on
-// try {
-//   const test = await sequelize.authenticate();
-//   console.log("Connection has been established successfully.");
-// } catch (error) {
-//   console.error("Unable to connect to the database:", error);
-// }
 
 const Book = BookModel(sequelize, Sequelize);
 const Author = AuthorModel(sequelize, Sequelize)
