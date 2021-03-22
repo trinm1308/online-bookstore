@@ -13,7 +13,19 @@ class BookService extends Service {
     FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId" 
     GROUP BY b.id 
     ORDER BY b.id ASC`;
-    const result = await sequelize.query(str, { type: QueryTypes.SELECT });
+    const result = await sequelize.query(query, { type: QueryTypes.SELECT });
+    return { status: 200, message: result };
+  }
+  async getOneWithReviews(id) {
+    const query = `SELECT b.id, b.title, b."publishedDate", b.image, b.price, b."oldPrice", b."countInStock", b.author, b.publisher, AVG(r."rating") as "rating", COUNT(r."id") as "numReviews", b."description" 
+    FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId" 
+    WHERE b.id = :id
+    GROUP BY b.id 
+    ORDER BY b.id ASC`;
+    const result = await sequelize.query(query, {
+      replacements: { id: id },
+      type: QueryTypes.SELECT,
+    });
     return { status: 200, message: result };
   }
 }

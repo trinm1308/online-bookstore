@@ -4,6 +4,7 @@ const service = require("./service");
 
 router.get("/", getAll);
 router.get("/advanced", getAllWithReviews);
+router.get("/advanced/:id", getOneWithReviews);
 router.get("/:id", getOne);
 router.post("/", addOne);
 router.put("/", updateOne);
@@ -57,6 +58,15 @@ async function deleteOne(req, res) {
 async function getAllWithReviews(req, res) {
     try {
       const respond = await service.getAllWithReviews()
+      res.status(respond.status).json(respond);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+  async function getOneWithReviews(req, res) {
+    try {
+      const respond = await service.getOneWithReviews(req.params.id)
       res.status(respond.status).json(respond);
     } catch (error) {
       res.status(500).json(error);
