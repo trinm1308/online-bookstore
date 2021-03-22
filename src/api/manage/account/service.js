@@ -2,6 +2,9 @@ const { QueryTypes } = require("sequelize");
 const { Sequelize } = require("../../../common/core/sequelize");
 const { Account } = require("../../../common/core/sequelize");
 const Service = require("../../../common/service");
+const jwt = require('jsonwebtoken');
+require("dotenv").config()
+
 
 class AccountService extends Service {
   async updateAccount(account) {
@@ -21,7 +24,8 @@ class AccountService extends Service {
       Account.encryptPassword(account.password, result.getDataValue("salt")) ===
       result.getDataValue("password")
     ) {
-      return { status: 200, message: result }; //Succ;
+      const token = jwt.sign({ sub: result.username }, process.env.TOKEN_SECRET, { expiresIn: '7d' });
+      return { status: 200, message: result, token: token }; //Succ;
     } else return { status: 401, message: "Incorrect Password" }; //Password doesnt match;
   }
 }
