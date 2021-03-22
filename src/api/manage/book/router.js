@@ -1,37 +1,66 @@
-const express = require('express')
-const router = express.Router()
-const service = require('./service') 
+const express = require("express");
+const router = express.Router();
+const service = require("./service");
 
-router.get('/', getAllBooks)
-router.get('/advanced', getBooksAdvanced)
-router.get('/:id', getBook)
-router.post('/', addBook)
-router.put('/', updateBook)
-router.delete('/:id', deleteBook)
+router.get("/", getAll);
+router.get("/advanced", getAllWithReviews);
+router.get("/:id", getOne);
+router.post("/", addOne);
+router.put("/", updateOne);
+router.delete("/:id", deleteOne);
 
-
-async function getAllBooks(req, res){
-    res.send(await service.getAll())
+async function getAll(req, res) {
+  try {
+    const respond = await service.getAll()
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function getBook(req, res){
-    res.send(await service.getOne(req.params.id))
+async function getOne(req, res) {
+  try {
+    const respond = await service.getOne(req.params.username)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function addBook(req, res){
-    res.send(await service.addOne(req.body))
+async function addOne(req, res) {
+  try {
+    const respond = await service.addOne(req.body)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function updateBook(req, res){
-    res.send(await service.updateOne(req.body))
+async function updateOne(req, res) {
+  try {
+    const respond = await service.updateOne(req.body)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function deleteBook(req, res){
-    res.sendStatus(await service.deleteOne(req.params.id))
+async function deleteOne(req, res) {
+  try {
+    const respond = await service.deleteOne(req.params.id)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function getBooksAdvanced(req, res){
-    res.send(await service.getBooksAdvanced())
-}
+async function getAllWithReviews(req, res) {
+    try {
+      const respond = await service.getAllWithReviews()
+      res.status(respond.status).json(respond);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
 
-module.exports = router
+module.exports = router;

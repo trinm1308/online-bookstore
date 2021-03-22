@@ -4,13 +4,13 @@ const { Rating } = require("../../../common/core/sequelize");
 const Service = require("../../../common/service");
 
 class RatingService extends Service {
-  async deleteRating(id) {
-    await Rating.destroy({
+  async deleteOne(id) {
+    const result = await Rating.destroy({
       where: {
         id: id,
       },
     });
-    return 200;
+    return { status: 200, message: result };
   }
 }
 

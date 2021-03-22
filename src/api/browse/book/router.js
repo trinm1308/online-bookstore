@@ -2,29 +2,32 @@ const express = require("express");
 const router = express.Router();
 const service = require("./service");
 
-router.get("/", getAllBooks);
-router.get("/advanced", getBooksAdvanced);
-router.get("/:id", getBook);
+router.get("/", getAll);
+router.get("/advanced", getAllWithReviews);
+router.get("/:id", getOne);
 
-async function getAllBooks(req, res) {
+async function getAll(req, res) {
   try {
-    res.status(200).json(await service.getAll());
+    const respond = await service.getAll();
+    res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
   }
 }
 
-async function getBook(req, res) {
+async function getOne(req, res) {
   try {
-    res.status(200).json(res.send(await service.getOne(req.params.id)));
+    const respond = await service.getOne(req.params.username);
+    res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
   }
 }
 
-async function getBooksAdvanced(req, res) {
+async function getAllWithReviews(req, res) {
   try {
-    res.status(200).json(await service.getBooksAdvanced());
+    const respond = await service.getAllWithReviews();
+    res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
   }

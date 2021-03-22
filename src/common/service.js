@@ -6,19 +6,25 @@ class Service {
     this.model = model;
   }
   async getAll() {
-    return await this.model.findAll();
+    const result = await this.model.findAll();
+    return { status: 200, message: result };
   }
 
   async getOne(pk) {
-    return await this.model.findByPk(pk);
+    const result = await this.model.findByPk(pk);
+    return { status: 200, message: result };
   }
 
   async addOne(object) {
-    return await this.model.create(object);
+    const result = await this.model.create(object);
+    return { status: 200, message: result };
   }
 
   async updateOne(object) {
-    return await this.model.update(object, { where: { id: object.id } });
+    const result = await this.model.update(object, {
+      where: { id: object.id },
+    });
+    return { status: 200, message: result };
   }
 }
 

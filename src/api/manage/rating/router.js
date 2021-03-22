@@ -1,31 +1,56 @@
-const express = require('express')
-const router = express.Router()
-const service = require('./service') 
+const express = require("express");
+const router = express.Router();
+const service = require("./service");
 
-router.get('/', getAllRatings)
-router.get('/:id', getRating)
-router.post('/', addRating)
-router.put('/', updateRating)
-router.delete('/:id', deleteRating)
+router.get("/", getAll);
+router.get("/:id", getOne);
+router.post("/", addOne);
+router.put("/", updateOne);
+router.delete("/:id", deleteOne);
 
-async function getAllRatings(req, res){
-    res.send(await service.getAll())
+async function getAll(req, res) {
+  try {
+    const respond = await service.getAll()
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function getRating(req, res){
-    res.send(await service.getOne(req.params.id))
+async function getOne(req, res) {
+  try {
+    const respond = await service.getOne(req.params.username)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function addRating(req, res){
-    res.send(await service.addOne(req.body))
+async function addOne(req, res) {
+  try {
+    const respond = await service.addOne(req.body)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function updateRating(req, res){
-    res.send(await service.updateOne(req.body))
+async function updateOne(req, res) {
+  try {
+    const respond = await service.updateOne(req.body)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function deleteRating(req, res){
-    res.sendStatus(await service.deleteOne(req.params.id))
+async function deleteOne(req, res) {
+  try {
+    const respond = await service.deleteOne(req.params.id)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-module.exports = router
+module.exports = router;

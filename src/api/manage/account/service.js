@@ -5,12 +5,12 @@ const Service = require("../../../common/service");
 
 class AccountService extends Service {
   async updateAccount(account) {
-    await Account.update(account, { where: { username: account.username } });
-    return 200;
+    const result = await Account.update(account, { where: { username: account.username } });
+    return {status: 200, message: result};
   }
   async deleteOne(username) {
-    await Account.destroy({ where: { username: username } });
-    return 200;
+    const result = await Account.destroy({ where: { username: username } });
+    return {status: 200, message: result};
   }
 
   async login(account) {

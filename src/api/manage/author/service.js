@@ -4,13 +4,13 @@ const { Author } = require("../../../common/core/sequelize");
 const Service = require("../../../common/service");
 
 class AuthorService extends Service {
-  async deleteAuthor(id) {
-    await Author.destroy({
+  async deleteOne(id) {
+    const result = await Author.destroy({
       where: {
         id: id,
       },
     });
-    return 200;
+    return { status: 200, message: result };
   }
 }
 

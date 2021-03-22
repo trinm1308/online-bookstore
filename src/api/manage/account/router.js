@@ -2,42 +2,63 @@ const express = require("express");
 const router = express.Router();
 const service = require("./service");
 
-router.get("/", getAllAccounts);
-router.get("/:username", getAccount);
-router.post("/", addAccount);
+router.get("/", getAll);
+router.get("/:username", getOne);
+router.post("/", addOne);
 router.put("/", updateAccount);
-router.delete("/:username", deleteAccount);
+router.delete("/:username", deleteOne);
 
 router.post("/login", login);
 
-async function getAllAccounts(req, res) {
+async function getAll(req, res) {
   try {
-    res.status(200).json(await service.getAll());
+    const respond = await service.getAll()
+    res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
   }
 }
 
-async function getAccount(req, res) {
-  res.send(await service.getOne(req.params.username));
+async function getOne(req, res) {
+  try {
+    const respond = await service.getOne(req.params.username)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function addAccount(req, res) {
-  res.send(await service.addOne(req.body));
+async function addOne(req, res) {
+  try {
+    const respond = await service.addOne(req.body)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
 async function updateAccount(req, res) {
-  res.send(await service.updateAccount(req.body));
+  try {
+    const respond = await service.updateAccount(req.body)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
-async function deleteAccount(req, res) {
-  res.sendStatus(await service.deleteOne(req.params.username));
+async function deleteOne(req, res) {
+  try {
+    const respond = await service.deleteOne(req.params.username)
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
 async function login(req, res) {
-  const login = await service.login(req.body);
   try {
-    res.status(login.status).json(login);
+    const respond = await service.login(req.body);
+    res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
   }
