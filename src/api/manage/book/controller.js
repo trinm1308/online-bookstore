@@ -3,6 +3,7 @@ const router = express.Router();
 const service = require("./service");
 
 router.get("/", getAll);
+router.get("/search/:keyword", searchBook);
 router.get("/advanced", getAllWithReviews);
 router.get("/advanced/:id", getOneWithReviews);
 router.get("/:id", getOne);
@@ -12,7 +13,7 @@ router.delete("/:id", deleteOne);
 
 async function getAll(req, res) {
   try {
-    const respond = await service.getAll()
+    const respond = await service.getAll();
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
@@ -21,7 +22,7 @@ async function getAll(req, res) {
 
 async function getOne(req, res) {
   try {
-    const respond = await service.getOne(req.params.id)
+    const respond = await service.getOne(req.params.id);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
@@ -30,7 +31,7 @@ async function getOne(req, res) {
 
 async function addOne(req, res) {
   try {
-    const respond = await service.addOne(req.body)
+    const respond = await service.addOne(req.body);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
@@ -39,7 +40,7 @@ async function addOne(req, res) {
 
 async function updateOne(req, res) {
   try {
-    const respond = await service.updateOne(req.body)
+    const respond = await service.updateOne(req.body);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
@@ -48,7 +49,7 @@ async function updateOne(req, res) {
 
 async function deleteOne(req, res) {
   try {
-    const respond = await service.deleteOne(req.params.id)
+    const respond = await service.deleteOne(req.params.id);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
@@ -56,21 +57,30 @@ async function deleteOne(req, res) {
 }
 
 async function getAllWithReviews(req, res) {
-    try {
-      const respond = await service.getAllWithReviews()
-      res.status(respond.status).json(respond);
-    } catch (error) {
-      res.status(500).json(error);
-    }
+  try {
+    const respond = await service.getAllWithReviews();
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
   }
+}
 
-  async function getOneWithReviews(req, res) {
-    try {
-      const respond = await service.getOneWithReviews(req.params.id)
-      res.status(respond.status).json(respond);
-    } catch (error) {
-      res.status(500).json(error);
-    }
+async function getOneWithReviews(req, res) {
+  try {
+    const respond = await service.getOneWithReviews(req.params.id);
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
   }
+}
+
+async function searchBook(req, res) {
+  try {
+    const respond = await service.searchBook(req.params.keyword);
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
 
 module.exports = router;
