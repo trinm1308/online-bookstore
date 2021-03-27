@@ -7,6 +7,7 @@ router.get("/genre", getAllGenre);
 router.get("/advanced", getAllWithReviews);
 router.get("/advanced/:id", getOneWithReviews);
 router.get("/search/:keyword", searchBook);
+router.get("/search/:keyword/:genre", searchBookWithGenre);
 router.get("/:id", getOne);
 
 async function getAll(req, res) {
@@ -48,6 +49,18 @@ async function getOneWithReviews(req, res) {
 async function searchBook(req, res) {
   try {
     const respond = await service.searchBook(req.params.keyword);
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+async function searchBookWithGenre(req, res) {
+  try {
+    const respond = await service.searchBookWithGenre(
+      req.params.keyword,
+      req.params.genre
+    );
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
