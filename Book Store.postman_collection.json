@@ -666,8 +666,29 @@
 									"variable": [
 										{
 											"key": "keyword",
-											"value": "h"
+											"value": "indust"
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all genre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/browse/book/genre",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"browse",
+										"book",
+										"genre"
 									]
 								}
 							},
