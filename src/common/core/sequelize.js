@@ -20,7 +20,7 @@ const Author = AuthorModel(sequelize, Sequelize)
 const Account = AccountModel(sequelize, Sequelize)
 const Rating = RatingModel(sequelize, Sequelize)
 
-sequelize.sync().then(() => {
+sequelize.sync({ alter: true }).then(() => {
   console.log(`Database & Tables created!`);
 });
 
