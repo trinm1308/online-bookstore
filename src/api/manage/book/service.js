@@ -48,8 +48,13 @@ class BookService extends Service {
     ORDER BY b.genre ASC`;
     const result = await sequelize.query(query, {
       type: QueryTypes.SELECT,
+      raw: true,
     });
-    return { status: 200, message: result };
+    const genres = [];
+    for (const record of result) {
+      genres.push(record.genre);
+    }
+    return { status: 200, message: { genre: genres } };
   }
 }
 
