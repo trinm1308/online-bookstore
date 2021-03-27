@@ -693,6 +693,39 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "get book within genre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/browse/book/search/:keyword/:genre",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"browse",
+										"book",
+										"search",
+										":keyword",
+										":genre"
+									],
+									"variable": [
+										{
+											"key": "keyword",
+											"value": "h"
+										},
+										{
+											"key": "genre",
+											"value": "nigga"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
