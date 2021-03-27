@@ -1,10 +1,12 @@
+// import { v4 as uuidv4 } from "uuid";
 const { Sequelize } = require("sequelize");
 const { sequelize } = require("../common/core/sequelize");
 const crypto = require("crypto");
 function Model(sequelize, type) {
-  const Account = sequelize.define("Account", {
+  const Customer = sequelize.define("Customer", {
     username: {
       type: type.STRING,
+      allowNull: false,
       primaryKey: true,
     },
     password: {
@@ -19,31 +21,34 @@ function Model(sequelize, type) {
         return () => this.getDataValue("salt");
       },
     },
-    email: type.STRING,
+    email: { type: type.STRING, unique: true },
     fullName: type.STRING,
+    phone: type.STRING,
+    address: type.STRING,
+    dob: type.DATE,
   });
-  Account.generateSalt = function () {
+  Customer.generateSalt = function () {
     return crypto.randomBytes(16).toString("base64");
   };
-  Account.encryptPassword = function (plainText, salt) {
+  Customer.encryptPassword = function (plainText, salt) {
     return crypto
       .createHash("RSA-SHA256")
       .update(plainText)
       .update(salt)
       .digest("hex");
   };
-  const setSaltAndPassword = (account) => {
-    if (account.changed("password")) {
-      account.salt = Account.generateSalt();
-      account.password = Account.encryptPassword(
-        account.password(),
-        account.salt()
+  const setSaltAndPassword = (customer) => {
+    if (customer.changed("password")) {
+      customer.salt = Customer.generateSalt();
+      customer.password = Customer.encryptPassword(
+        customer.password(),
+        customer.salt()
       );
     }
   };
-  Account.beforeCreate(setSaltAndPassword);
-  Account.beforeUpdate(setSaltAndPassword);
+  Customer.beforeCreate(setSaltAndPassword);
+  Customer.beforeUpdate(setSaltAndPassword);
 
-  return Account;
+  return Customer;
 }
 module.exports = Model(sequelize, Sequelize);

@@ -1,18 +1,14 @@
 const { Sequelize } = require("sequelize");
 const { sequelize } = require("../common/core/sequelize");
 function Model(sequelize, type) {
-  return sequelize.define("Order", {
+  return sequelize.define("Cart", {
     id: {
       type: type.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    cartId: type.INTEGER,
-    orderDate: type.DATE,
-    address: type.STRING,
     customer: type.STRING,
-    payment: type.INTEGER,
-    orderStatus: type.INTEGER,
+    items: type.ARRAY(type.INTEGER),
   });
 }
 module.exports = Model(sequelize, Sequelize);

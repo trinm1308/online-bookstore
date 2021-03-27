@@ -1,4 +1,7 @@
-module.exports = (sequelize, type) => {
+const { Sequelize } = require("sequelize");
+const { sequelize } = require("../common/core/sequelize");
+
+function Model(sequelize, type) {
   return sequelize.define("Book", {
     id: {
       type: type.INTEGER,
@@ -16,4 +19,6 @@ module.exports = (sequelize, type) => {
     publisher: type.STRING,
     description: type.TEXT,
   });
-};
+}
+
+module.exports = Model(sequelize, Sequelize);
