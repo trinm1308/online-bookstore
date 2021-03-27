@@ -2,24 +2,14 @@ const express = require("express");
 const router = express.Router();
 const service = require("./service");
 
-router.get("/", getAll);
-router.get("/:id", getOne);
+router.get("/test", test);
+router.get("/:username", getOne);
+router.post("/login", login);
 router.post("/", addOne);
-router.put("/", updateOne);
-router.delete("/:id", deleteOne);
-
-async function getAll(req, res) {
-  try {
-    const respond = await service.getAll()
-    res.status(respond.status).json(respond);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-}
 
 async function getOne(req, res) {
   try {
-    const respond = await service.getOne(req.params.id)
+    const respond = await service.getOne(req.params.username);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
@@ -28,25 +18,25 @@ async function getOne(req, res) {
 
 async function addOne(req, res) {
   try {
-    const respond = await service.addOne(req.body)
+    const respond = await service.addOne(req.body);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
   }
 }
 
-async function updateOne(req, res) {
+async function login(req, res) {
   try {
-    const respond = await service.updateOne(req.body)
+    const respond = await service.login(req.body);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
   }
 }
 
-async function deleteOne(req, res) {
+async function test(req, res) {
   try {
-    const respond = await service.deleteOne(req.params.id)
+    const respond = await service.test();
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);

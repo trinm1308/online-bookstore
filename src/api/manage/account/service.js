@@ -1,6 +1,6 @@
 const { QueryTypes } = require("sequelize");
 const { Sequelize } = require("../../../common/core/sequelize");
-const { Account } = require("../../../common/core/sequelize");
+const Account = require("../../../models/account");
 const Service = require("../../../common/service");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -31,7 +31,6 @@ class AccountService extends Service {
         }),
       };
       result = { result, ...token };
-      console.log(result);
       return { status: 200, message: result }; //Succ;
     } else return { status: 401, message: "Incorrect Password" }; //Password doesnt match;
   }

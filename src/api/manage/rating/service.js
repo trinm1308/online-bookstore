@@ -1,6 +1,6 @@
 const { QueryTypes } = require("sequelize");
 const { Sequelize } = require("../../../common/core/sequelize");
-const { Rating } = require("../../../common/core/sequelize");
+const Rating = require("../../../models/rating");
 const Service = require("../../../common/service");
 
 class RatingService extends Service {

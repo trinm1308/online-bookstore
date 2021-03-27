@@ -26,6 +26,11 @@ class Service {
     });
     return { status: 200, message: result };
   }
+
+  async deleteOne(id) {
+    const result = await this.model.destroy({ where: { id: id } });
+    return { status: 200, message: result };
+  }
 }
 
 module.exports = Service;
