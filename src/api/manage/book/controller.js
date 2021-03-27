@@ -3,6 +3,7 @@ const router = express.Router();
 const service = require("./service");
 
 router.get("/", getAll);
+router.get("/genre", getAllGenre);
 router.get("/search/:keyword", searchBook);
 router.get("/advanced", getAllWithReviews);
 router.get("/advanced/:id", getOneWithReviews);
@@ -77,6 +78,15 @@ async function getOneWithReviews(req, res) {
 async function searchBook(req, res) {
   try {
     const respond = await service.searchBook(req.params.keyword);
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+async function getAllGenre(req, res) {
+  try {
+    const respond = await service.getAllGenre();
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);

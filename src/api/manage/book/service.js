@@ -41,6 +41,16 @@ class BookService extends Service {
     });
     return { status: 200, message: result };
   }
+  async getAllGenre() {
+    const query = `SELECT DISTINCT b.genre
+    FROM public."Books" b
+    GROUP BY b.genre 
+    ORDER BY b.genre ASC`;
+    const result = await sequelize.query(query, {
+      type: QueryTypes.SELECT,
+    });
+    return { status: 200, message: result };
+  }
 }
 
 module.exports = new BookService(Book);
