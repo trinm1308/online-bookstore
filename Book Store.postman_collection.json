@@ -594,6 +594,15 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "get items by customer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
 						}
 					]
 				},
@@ -601,7 +610,7 @@
 					"name": "Cart",
 					"item": [
 						{
-							"name": "add item",
+							"name": "add cart",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -640,7 +649,7 @@
 							"response": []
 						},
 						{
-							"name": "get all item",
+							"name": "get all cart",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -660,7 +669,7 @@
 							"response": []
 						},
 						{
-							"name": "get one item",
+							"name": "get one cart",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -687,7 +696,7 @@
 							"response": []
 						},
 						{
-							"name": "delete item",
+							"name": "delete cart",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -714,7 +723,7 @@
 							"response": []
 						},
 						{
-							"name": "update item",
+							"name": "update cart",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -748,7 +757,7 @@
 					"name": "Payment",
 					"item": [
 						{
-							"name": "add item",
+							"name": "add payment",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -787,7 +796,7 @@
 							"response": []
 						},
 						{
-							"name": "get all item",
+							"name": "get all payment",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -807,7 +816,7 @@
 							"response": []
 						},
 						{
-							"name": "get one item",
+							"name": "get one payment",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -834,7 +843,7 @@
 							"response": []
 						},
 						{
-							"name": "delete item",
+							"name": "delete payment",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -861,7 +870,7 @@
 							"response": []
 						},
 						{
-							"name": "update item",
+							"name": "update payment",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -895,7 +904,7 @@
 					"name": "Order",
 					"item": [
 						{
-							"name": "add item",
+							"name": "add order",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -934,7 +943,7 @@
 							"response": []
 						},
 						{
-							"name": "get all item",
+							"name": "get all order",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -954,7 +963,7 @@
 							"response": []
 						},
 						{
-							"name": "get one item",
+							"name": "get one order",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -981,7 +990,7 @@
 							"response": []
 						},
 						{
-							"name": "delete item",
+							"name": "delete order",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -1008,7 +1017,7 @@
 							"response": []
 						},
 						{
-							"name": "update item",
+							"name": "update order",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -1042,7 +1051,7 @@
 					"name": "Bill",
 					"item": [
 						{
-							"name": "add item",
+							"name": "add bill",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1081,7 +1090,7 @@
 							"response": []
 						},
 						{
-							"name": "get all item",
+							"name": "get all bill",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -1101,7 +1110,7 @@
 							"response": []
 						},
 						{
-							"name": "get one item",
+							"name": "get one bill",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -1128,7 +1137,7 @@
 							"response": []
 						},
 						{
-							"name": "delete item",
+							"name": "delete bill",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -1155,7 +1164,7 @@
 							"response": []
 						},
 						{
-							"name": "update item",
+							"name": "update bill",
 							"request": {
 								"method": "PUT",
 								"header": [],
