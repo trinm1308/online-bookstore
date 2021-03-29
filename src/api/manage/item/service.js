@@ -15,6 +15,23 @@ class ItemService extends Service {
     });
     return { status: 200, message: result };
   }
+
+  async addOne(item) {
+    let result;
+    const existingItem = await Item.findOne({
+      where: { customer: item.customer, productId: item.productId },
+    });
+    if (existingItem) {
+      const newQuantity = existingItem.quantity + item.quantity;
+      result = Item.update(
+        { quantity: newQuantity },
+        { where: { id: existingItem.id } }
+      );
+    } else {
+      result = await Item.create(item);
+    }
+    return { status: 200, message: result };
+  }
 }
 
 module.exports = new ItemService(Item);
