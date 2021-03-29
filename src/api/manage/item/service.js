@@ -5,9 +5,10 @@ const Service = require("../../../common/service");
 
 class ItemService extends Service {
   async getItemsByCustomer(username) {
-    const query = `SELECT i.id, i."productId", b.title, b.image, b.price, b."countInStock", i.quantity
+    const query = `SELECT i.id, i."productId", b.title, b.image, b.price, s."quantity" as "countInStock", i.quantity
     FROM public."Items" i 
     LEFT JOIN public."Books" b ON i."productId" = b.id 
+    LEFT JOIN public."Stocks" s ON b.id = s."productId"
     WHERE i.customer = :username`;
     const result = await sequelize.query(query, {
       replacements: { username: username },
