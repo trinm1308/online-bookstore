@@ -1086,6 +1086,34 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "get order by customer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/manage/order/customer/:username",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"manage",
+										"order",
+										"customer",
+										":username"
+									],
+									"variable": [
+										{
+											"key": "username",
+											"value": "customer1"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -1457,14 +1485,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3000/broswe/book/advanced",
+									"raw": "http://localhost:3000/browse/book/advanced",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"broswe",
+										"browse",
 										"book",
 										"advanced"
 									]
