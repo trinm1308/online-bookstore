@@ -3,7 +3,7 @@ const router = express.Router();
 const service = require("./service");
 
 router.get("/", getAll);
-router.get("/ofbook/:productId", getAllReviewsOfBook)
+router.get("/book/:productId", getAllReviewsOfBook)
 router.get("/:id", getOne);
 router.post("/", addOne);
 router.put("/", updateOne);

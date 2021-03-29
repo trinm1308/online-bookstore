@@ -10,6 +10,7 @@ function Model(sequelize, type) {
     cartId: type.INTEGER,
     orderDate: type.DATE,
     address: type.STRING,
+    phone: type.STRING,
     customer: type.STRING,
     payment: type.INTEGER,
     orderStatus: type.INTEGER,
