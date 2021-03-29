@@ -14,7 +14,6 @@ function Model(sequelize, type) {
     image: type.STRING,
     price: type.FLOAT,
     oldPrice: type.FLOAT,
-    countInStock: type.INTEGER,
     author: type.STRING,
     publisher: type.STRING,
     description: type.TEXT,
