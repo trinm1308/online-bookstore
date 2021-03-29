@@ -6,8 +6,9 @@ router.get("/", getAll);
 router.get("/genre", getAllGenre);
 router.get("/advanced", getAllWithReviews);
 router.get("/advanced/:id", getOneWithReviews);
+router.get("/search/genre/:genre", searchBookByGenre);
 router.get("/search/:keyword", searchBook);
-router.get("/search/:keyword/:genre", searchBookWithGenre);
+router.get("/search/:keyword/:genre", searchBookAndGenre);
 router.get("/:id", getOne);
 
 async function getAll(req, res) {
@@ -55,12 +56,21 @@ async function searchBook(req, res) {
   }
 }
 
-async function searchBookWithGenre(req, res) {
+async function searchBookAndGenre(req, res) {
   try {
-    const respond = await service.searchBookWithGenre(
+    const respond = await service.searchBookAndGenre(
       req.params.keyword,
       req.params.genre
     );
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+async function searchBookByGenre(req, res) {
+  try {
+    const respond = await service.searchBookByGenre(req.params.genre);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
