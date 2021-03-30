@@ -25,7 +25,7 @@ class BookService extends Service {
     GROUP BY b.id, s."quantity" 
     ORDER BY b.id ASC
     LIMIT :limit OFFSET :offset`;
-    const limit = this.PAGE_LIMT;
+    const limit = this.PAGE_LIMIT;
     const offset = page == 1 ? 0 : limit * page;
     const result = await sequelize.query(query, {
       replacements: { limit: limit, offset: offset },
@@ -62,7 +62,7 @@ class BookService extends Service {
     LIMIT :limit OFFSET :offset`;
     const keywordReplacement = "%" + keyword + "%";
 
-    const limit = this.PAGE_LIMT;
+    const limit = this.PAGE_LIMIT;
     const offset = page == 1 ? 0 : limit * page;
     const result = await sequelize.query(query, {
       replacements: {
@@ -93,7 +93,7 @@ class BookService extends Service {
     LIMIT :limit OFFSET :offset`;
     const keywordReplacement = "%" + keyword + "%";
 
-    const limit = this.PAGE_LIMT;
+    const limit = this.PAGE_LIMIT;
     const offset = page == 1 ? 0 : limit * page;
     const result = await sequelize.query(query, {
       replacements: {
@@ -126,7 +126,7 @@ class BookService extends Service {
     GROUP BY b.id, s."quantity" 
     ORDER BY b.id ASC
     LIMIT :limit OFFSET :offset`;
-    const limit = this.PAGE_LIMT;
+    const limit = this.PAGE_LIMIT;
     const offset = page == 1 ? 0 : limit * page;
     const result = await sequelize.query(query, {
       replacements: { genre: genre, limit: limit, offset: offset },

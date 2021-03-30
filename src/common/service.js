@@ -6,7 +6,7 @@ class Service {
     this.model = model;
   }
 
-  PAGE_LIMT = parseInt(process.env.PAGE_LIMIT)
+  PAGE_LIMIT = parseInt(process.env.PAGE_LIMIT)
 
   async getAll() {
     const result = await this.model.findAll();
