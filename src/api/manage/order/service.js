@@ -8,6 +8,21 @@ class OrderService extends Service {
     const result = await Order.findAll({ where: { customer: username } });
     return { status: 200, message: result };
   }
+  async placeOrder(order) {
+    const result = await Order.create(order);
+    const orderItems = order.items;
+    for (const item of orderItems) {
+      const query = `UPDATE public."Items"
+      SET status = 1
+      WHERE id = :id`;
+      const itemDetail = await sequelize.query(query, {
+        replacements: { id: item },
+        type: QueryTypes.SELECT,
+      });
+    }
+    return { status: 200, message: result };
+  }
+
   async getOrderDetail(id) {
     const order = await Order.findByPk(id);
     const orderItems = order.getDataValue("items");

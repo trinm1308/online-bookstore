@@ -10,6 +10,7 @@ function Model(sequelize, type) {
     productId: type.INTEGER,
     customer: type.STRING,
     quantity: type.INTEGER,
+    status: type.INTEGER,
   });
 }
 module.exports = Model(sequelize, Sequelize);

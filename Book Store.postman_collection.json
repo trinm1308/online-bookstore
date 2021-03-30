@@ -679,7 +679,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": 2,\r\n    \"productId\": 6,\r\n    \"customer\": \"1\",\r\n    \"quantity\": 14 \r\n}",
+									"raw": "{\r\n    \"id\": 2,\r\n    \"productId\": 6,\r\n    \"customer\": \"1\",\r\n    \"quantity\": 14,\r\n    \"status\": 0 \r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -702,12 +702,12 @@
 							"response": []
 						},
 						{
-							"name": "get items by customer",
+							"name": "get cart",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3000/manage/item/customer/:username",
+									"raw": "http://localhost:3000/manage/item/cart/:username",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -716,7 +716,7 @@
 									"path": [
 										"manage",
 										"item",
-										"customer",
+										"cart",
 										":username"
 									],
 									"variable": [
@@ -1221,6 +1221,46 @@
 											"key": "id",
 											"value": "2"
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "place order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE2MTY4NzQ5NDQsImV4cCI6MTYxNzQ3OTc0NH0.XNcpdxYUXlc-k7tBhcsVkkB_M4APTxYbzevacn3gfxE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customer\": \"customer1\",\r\n    \"items\": [\r\n        3,\r\n        4\r\n    ],\r\n    \"orderDate\": \"13/Aug/2021\",\r\n    \"address\": \"Moscow, Russia\",\r\n    \"phone\": \"0353124287\",\r\n    \"payment\": 1,\r\n    \"orderStatus\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/manage/order/place",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"manage",
+										"order",
+										"place"
 									]
 								}
 							},

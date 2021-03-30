@@ -6,6 +6,8 @@ router.get("/", getAll);
 router.get("/customer/:username", getOrderByCustomer)
 router.get("/detail/:id", getOrderDetail);
 
+router.post("/place", placeOrder)
+
 router.get("/:id", getOne);
 router.post("/", addOne);
 router.put("/", updateOne);
@@ -68,6 +70,15 @@ async function getOrderByCustomer(req, res) {
 async function getOrderDetail(req, res) {
   try {
     const respond = await service.getOrderDetail(req.params.id);
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+async function placeOrder(req, res) {
+  try {
+    const respond = await service.placeOrder(req.body);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);

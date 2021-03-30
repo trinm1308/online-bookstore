@@ -4,12 +4,12 @@ const Item = require("../../../models/item");
 const Service = require("../../../common/service");
 
 class ItemService extends Service {
-  async getItemsByCustomer(username) {
-    const query = `SELECT i.id, i."productId", b.title, b.image, b.price, s."quantity" as "countInStock", i.quantity
+  async getCart(username) {
+    const query = `SELECT i.id, i."productId", b.title, b.image, b.price, s."quantity" as "countInStock", i.quantity, i.status
     FROM public."Items" i 
     LEFT JOIN public."Books" b ON i."productId" = b.id 
     LEFT JOIN public."Stocks" s ON b.id = s."productId"
-    WHERE i.customer = :username`;
+    WHERE i.customer = :username AND i.status = 0`;
     const result = await sequelize.query(query, {
       replacements: { username: username },
       type: QueryTypes.SELECT,
@@ -33,6 +33,7 @@ class ItemService extends Service {
     }
     return { status: 200, message: result };
   }
+
 }
 
 module.exports = new ItemService(Item);
