@@ -196,7 +196,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"Industrial Society And Its Future\",\r\n    \"publishedDate\": \"19/Sep/1995\",\r\n    \"image\": \"img\\\\Book\\\\industrial-society-and-its-future.jpg\",\r\n    \"price\": 120,\r\n    \"oldPrice\": 130,\r\n    \"countInStock\": 100,\r\n    \"author\": \"Theodore John Kaczynski\",\r\n    \"publisher\": \"Theodore John Kaczynski\",\r\n    \"rating\": 5,\r\n    \"numReviews\": 10,\r\n    \"description\": \"In 1971 Dr. Theodore Kaczynski rejected modern society and moved to a primitive cabin in the woods of Montana. There, he began building bombs, which he sent to professors and executives to express his disdain for modern society, and to work on his magnum opus, Industrial Society and Its Future, forever known to the world as the Unabomber Manifesto. Responsible for three deaths and more than twenty casualties over two decades, he was finally identifed and apprehended when his brother recognized his writing style while reading the 'Unabomber Manifesto.' The piece, written under the pseudonym FC (Freedom Club) was published in the New York Times after his promise to cease the bombing if a major publication printed it in its entirety.\"\r\n}",
+									"raw": "{\r\n    \"title\": \"Dummy Book\",\r\n    \"genre\": \"Criminal\",\r\n    \"publishedDate\": \"19/Sep/1995\",\r\n    \"image\": \"img\\\\Book\\\\industrial-society-and-its-future.jpg\",\r\n    \"price\": 120,\r\n    \"oldPrice\": 130,\r\n    \"author\": \"Nigga Niggaman\",\r\n    \"publisher\": \"Negro Publishing\",\r\n    \"description\": \"Niggas\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -251,7 +251,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3000/manage/book/advanced",
+									"raw": "http://localhost:3000/manage/book/page/:page",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -260,7 +260,14 @@
 									"path": [
 										"manage",
 										"book",
-										"advanced"
+										"page",
+										":page"
+									],
+									"variable": [
+										{
+											"key": "page",
+											"value": "1"
+										}
 									]
 								}
 							},
@@ -272,7 +279,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3000/manage/book/advanced/:id",
+									"raw": "http://localhost:3000/manage/book/one/:id",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -281,7 +288,7 @@
 									"path": [
 										"manage",
 										"book",
-										"advanced",
+										"one",
 										":id"
 									],
 									"variable": [
@@ -300,7 +307,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3000/manage/book/search/:keyword",
+									"raw": "http://localhost:3000/manage/book/search/:keyword/:page",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -310,12 +317,88 @@
 										"manage",
 										"book",
 										"search",
-										":keyword"
+										":keyword",
+										":page"
 									],
 									"variable": [
 										{
 											"key": "keyword",
-											"value": "society"
+											"value": "dummy"
+										},
+										{
+											"key": "page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search book within genre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/manage/book/search/:keyword/:genre/:page",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"manage",
+										"book",
+										"search",
+										":keyword",
+										":genre",
+										":page"
+									],
+									"variable": [
+										{
+											"key": "keyword",
+											"value": "m"
+										},
+										{
+											"key": "genre",
+											"value": "Criminal"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get book by genre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/manage/book/genre/:genre/:page",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"manage",
+										"book",
+										"genre",
+										":genre",
+										":page"
+									],
+									"variable": [
+										{
+											"key": "genre",
+											"value": "Criminal"
+										},
+										{
+											"key": "page",
+											"value": "1"
 										}
 									]
 								}
@@ -1447,201 +1530,6 @@
 			"name": "Browse",
 			"item": [
 				{
-					"name": "Book",
-					"item": [
-						{
-							"name": "get all book",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0ZXJtYW4zIiwiaWF0IjoxNjE2NDI3NzUyLCJleHAiOjE2MTcwMzI1NTJ9.4n1xG5klLrTcCKx39eBgRzbJ7h06nHVtKzDDH-5gVqM",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:3000/browse/book",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"browse",
-										"book"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get all book with ratings",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:3000/browse/book/advanced",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"browse",
-										"book",
-										"advanced"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get one book with ratings",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:3000/browse/book/advanced/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"browse",
-										"book",
-										"advanced",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "6"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "search book",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:3000/browse/book/search/:keyword",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"browse",
-										"book",
-										"search",
-										":keyword"
-									],
-									"variable": [
-										{
-											"key": "keyword",
-											"value": "indust"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get all genre",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:3000/browse/book/genre",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"browse",
-										"book",
-										"genre"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get book within genre",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:3000/browse/book/search/:keyword/:genre",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"browse",
-										"book",
-										"search",
-										":keyword",
-										":genre"
-									],
-									"variable": [
-										{
-											"key": "keyword",
-											"value": "h"
-										},
-										{
-											"key": "genre",
-											"value": "nigga"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get book by genre",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:3000/browse/book/search/genre/:genre",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"browse",
-										"book",
-										"search",
-										"genre",
-										":genre"
-									],
-									"variable": [
-										{
-											"key": "genre",
-											"value": "Sociology"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "Customer",
 					"item": [
 						{
@@ -1720,6 +1608,171 @@
 										"manage",
 										"customer",
 										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Book",
+					"item": [
+						{
+							"name": "get all book with ratings",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/browse/book/page/:page",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"browse",
+										"book",
+										"page",
+										":page"
+									],
+									"variable": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get one book with ratings",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/browse/book/one/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"browse",
+										"book",
+										"one",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search book",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/browse/book/search/:keyword/:page",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"browse",
+										"book",
+										"search",
+										":keyword",
+										":page"
+									],
+									"variable": [
+										{
+											"key": "keyword",
+											"value": "dummy"
+										},
+										{
+											"key": "page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search book within genre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/browse/book/search/:keyword/:genre/:page",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"browse",
+										"book",
+										"search",
+										":keyword",
+										":genre",
+										":page"
+									],
+									"variable": [
+										{
+											"key": "keyword",
+											"value": "m"
+										},
+										{
+											"key": "genre",
+											"value": "Criminal"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get book by genre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/browse/book/genre/:genre/:page",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"browse",
+										"book",
+										"genre",
+										":genre",
+										":page"
+									],
+									"variable": [
+										{
+											"key": "genre",
+											"value": "Criminal"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
 									]
 								}
 							},
