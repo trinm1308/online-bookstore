@@ -30,6 +30,22 @@ class RatingService extends Service {
     if (check) return { status: 200, message: true };
     else return { status: 401, message: "Unauthorized to add a rating" };
   }
+
+  async addOne(rating) {
+    let result;
+    const existingRating = await Rating.findOne({
+      where: { customer: item.customer, account: rating.account },
+    });
+    if (existingAccount) {
+      result = Rating.update(
+        { content: rating.content },
+        { where: { id: existingRating.id } }
+      );
+    } else {
+      result = await Rating.create(rating);
+    }
+    return { status: 200, message: result };
+  }
 }
 
 module.exports = new RatingService(Rating);
