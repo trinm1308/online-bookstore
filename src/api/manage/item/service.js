@@ -20,7 +20,7 @@ class ItemService extends Service {
   async addOne(item) {
     let result;
     const existingItem = await Item.findOne({
-      where: { customer: item.customer, productId: item.productId },
+      where: { customer: item.customer, productId: item.productId, status: 0 },
     });
     if (existingItem) {
       const newQuantity = existingItem.quantity + item.quantity;
