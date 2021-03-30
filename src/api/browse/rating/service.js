@@ -15,7 +15,7 @@ class RatingService extends Service {
   }
   async getAllReviewsOfBook(productId, page) {
     const limit = this.PAGE_LIMIT;
-    const offset = page == 1 ? 0 : page * limit;
+    const offset = page == 1 ? 0 : limit * (page - 1);
     const recordCount = await Rating.count({
       where: {
         productId: productId,
