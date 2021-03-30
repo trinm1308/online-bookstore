@@ -3,6 +3,7 @@ const sequelize = require("../../../common/core/sequelize");
 const Customer = require("../../../models/customer");
 const Service = require("../../../common/service");
 const jwt = require("jsonwebtoken");
+const jwt_decode = require("jwt-decode");
 require("dotenv").config();
 
 class CustomerService extends Service {
@@ -36,6 +37,11 @@ class CustomerService extends Service {
   async test() {
     const result = await Customer.findAll();
     return { status: 200, message: result };
+  }
+
+  async checkToken(token) {
+    var decoded = jwt_decode(token);
+    return { status: 200, message: decoded };
   }
 }
 

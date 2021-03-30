@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const service = require("./service");
 
+
+router.get("/decode", checkToken);
 router.get("/test", test);
 router.get("/:username", getOne);
 router.post("/login", login);
@@ -37,6 +39,17 @@ async function login(req, res) {
 async function test(req, res) {
   try {
     const respond = await service.test();
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+async function checkToken(req, res) {
+  try {
+    const auth = req.headers.authorization;
+    console.log(auth)
+    const respond = await service.checkToken(auth);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
