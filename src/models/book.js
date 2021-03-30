@@ -11,7 +11,7 @@ function Model(sequelize, type) {
     title: type.STRING,
     genre: type.STRING,
     publishedDate: type.DATE,
-    image: type.TEXT,
+    image: type.BLOB('tiny'),
     price: type.FLOAT,
     oldPrice: type.FLOAT,
     author: type.STRING,
