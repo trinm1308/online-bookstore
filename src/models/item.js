@@ -10,7 +10,7 @@ function Model(sequelize, type) {
     productId: type.INTEGER,
     customer: type.STRING,
     quantity: type.INTEGER,
-    status: type.INTEGER,
+    status: { type: type.INTEGER, defaultValue: 0 },
   });
 }
 module.exports = Model(sequelize, Sequelize);
