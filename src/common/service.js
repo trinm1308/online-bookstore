@@ -1,10 +1,13 @@
 const { QueryTypes } = require("sequelize");
-//const { Sequelize } = require("../../../core/sequelize");
+require("dotenv").config();
 
 class Service {
   constructor(model) {
     this.model = model;
   }
+
+  PAGE_LIMT = parseInt(process.env.PAGE_LIMIT)
+
   async getAll() {
     const result = await this.model.findAll();
     return { status: 200, message: result };

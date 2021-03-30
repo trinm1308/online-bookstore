@@ -4,9 +4,14 @@ const service = require("./service");
 
 router.get("/", getAll);
 router.get("/genre", getAllGenre);
-router.get("/search/:keyword", searchBook);
-router.get("/advanced", getAllWithReviews);
-router.get("/advanced/:id", getOneWithReviews);
+router.get("/genre/:genre/:page", getBookByGenre);
+
+router.get("/search/:keyword/:genre/:page", searchBookWithinGenre);
+router.get("/search/:keyword/:page", searchBook);
+
+router.get("/page/:page", getAllWithReviews);
+router.get("/one/:id", getOneWithReviews);
+
 router.get("/:id", getOne);
 router.post("/", addOne);
 router.put("/", updateOne);
@@ -59,7 +64,7 @@ async function deleteOne(req, res) {
 
 async function getAllWithReviews(req, res) {
   try {
-    const respond = await service.getAllWithReviews();
+    const respond = await service.getAllWithReviews(parseInt(req.params.page));
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
@@ -75,9 +80,24 @@ async function getOneWithReviews(req, res) {
   }
 }
 
+async function getBookByGenre(req, res) {
+  try {
+    const respond = await service.getBookByGenre(
+      req.params.genre,
+      parseInt(req.params.page)
+    );
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
 async function searchBook(req, res) {
   try {
-    const respond = await service.searchBook(req.params.keyword);
+    const respond = await service.searchBook(
+      req.params.keyword,
+      parseInt(req.params.page)
+    );
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
@@ -87,6 +107,19 @@ async function searchBook(req, res) {
 async function getAllGenre(req, res) {
   try {
     const respond = await service.getAllGenre();
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+async function searchBookWithinGenre(req, res) {
+  try {
+    const respond = await service.searchBookWithinGenre(
+      req.params.keyword,
+      req.params.genre,
+      parseInt(req.params.page)
+    );
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);

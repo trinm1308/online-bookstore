@@ -1,4 +1,5 @@
 const { QueryTypes } = require("sequelize");
+const { Op } = require("sequelize");
 const { sequelize } = require("../../../common/core/sequelize");
 const Book = require("../../../models/book");
 const Service = require("../../../common/service");
@@ -8,14 +9,35 @@ class BookService extends Service {
     const result = await Book.destroy({ where: { id: id } });
     return { status: 200, message: result };
   }
-  async getAllWithReviews() {
+  // async getAllWithReviews() {
+  //   const query = `SELECT b.id, b.title, b.genre, b."publishedDate", b.image, b.price, b."oldPrice", s."quantity" as "countInStock", b.author, b.publisher, AVG(r."rating") as "rating", COUNT(r."id") as "numReviews", b."description"
+  //   FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId"
+  //   LEFT JOIN public."Stocks" s ON b.id = s."productId"
+  //   GROUP BY b.id, s."quantity"
+  //   ORDER BY b.id ASC`;
+  //   const result = await sequelize.query(query, { type: QueryTypes.SELECT });
+  //   return { status: 200, message: result };
+  // }
+  async getAllWithReviews(page) {
     const query = `SELECT b.id, b.title, b.genre, b."publishedDate", b.image, b.price, b."oldPrice", s."quantity" as "countInStock", b.author, b.publisher, AVG(r."rating") as "rating", COUNT(r."id") as "numReviews", b."description" 
     FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId" 
     LEFT JOIN public."Stocks" s ON b.id = s."productId"
     GROUP BY b.id, s."quantity" 
-    ORDER BY b.id ASC`;
-    const result = await sequelize.query(query, { type: QueryTypes.SELECT });
-    return { status: 200, message: result };
+    ORDER BY b.id ASC
+    LIMIT :limit OFFSET :offset`;
+    const limit = this.PAGE_LIMT;
+    const offset = page == 1 ? 0 : limit * page;
+    const result = await sequelize.query(query, {
+      replacements: { limit: limit, offset: offset },
+      type: QueryTypes.SELECT,
+    });
+    const recordCount = await Book.count();
+    const pageNumber =
+      recordCount % limit == 0
+        ? recordCount / limit
+        : Math.floor(recordCount / limit) + 1;
+    const paging = { page: page, pageNumber: pageNumber };
+    return { status: 200, message: { result, ...paging } };
   }
   async getOneWithReviews(id) {
     const query = `SELECT b.id, b.title, b.genre, b."publishedDate", b.image, b.price, b."oldPrice", s."quantity" as "countInStock", b.author, b.publisher, AVG(r."rating") as "rating", COUNT(r."id") as "numReviews", b."description" 
@@ -30,46 +52,93 @@ class BookService extends Service {
     });
     return { status: 200, message: result };
   }
-  async searchBook(keyword) {
+  async searchBook(keyword, page) {
     const query = `SELECT b.id, b.title, b.genre, b."publishedDate", b.image, b.price, b."oldPrice", s."quantity" as "countInStock", b.author, b.publisher, AVG(r."rating") as "rating", COUNT(r."id") as "numReviews", b."description" 
     FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId" 
     LEFT JOIN public."Stocks" s ON b.id = s."productId"
     WHERE b.title ILIKE :keyword
     GROUP BY b.id, s."quantity" 
-    ORDER BY b.id ASC`;
-    const replacement = "%" + keyword + "%";
+    ORDER BY b.id ASC
+    LIMIT :limit OFFSET :offset`;
+    const keywordReplacement = "%" + keyword + "%";
+
+    const limit = this.PAGE_LIMT;
+    const offset = page == 1 ? 0 : limit * page;
     const result = await sequelize.query(query, {
-      replacements: { keyword: replacement },
+      replacements: {
+        keyword: keywordReplacement,
+        limit: limit,
+        offset: offset,
+      },
       type: QueryTypes.SELECT,
     });
-    return { status: 200, message: result };
+    const recordCount = await Book.count({
+      where: { title: { [Op.iLike]: keywordReplacement } },
+    });
+    const pageNumber =
+      recordCount % limit == 0
+        ? recordCount / limit
+        : Math.floor(recordCount / limit) + 1;
+    const paging = { page: page, pageNumber: pageNumber };
+    return { status: 200, message: { result, ...paging } };
   }
-  async searchBookAndGenre(keyword, genre) {
+
+  async searchBookWithinGenre(keyword, genre, page) {
     const query = `SELECT b.id, b.title, b.genre, b."publishedDate", b.image, b.price, b."oldPrice", s."quantity" as "countInStock", b.author, b.publisher, AVG(r."rating") as "rating", COUNT(r."id") as "numReviews", b."description" 
     FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId" 
     LEFT JOIN public."Stocks" s ON b.id = s."productId"
-    WHERE b.title ILIKE :keyword OR b.genre = :genre
+    WHERE b.genre = :genre AND b.title ILIKE :keyword
     GROUP BY b.id, s."quantity" 
-    ORDER BY b.id ASC`;
+    ORDER BY b.id ASC
+    LIMIT :limit OFFSET :offset`;
     const keywordReplacement = "%" + keyword + "%";
+
+    const limit = this.PAGE_LIMT;
+    const offset = page == 1 ? 0 : limit * page;
     const result = await sequelize.query(query, {
-      replacements: { keyword: keywordReplacement, genre: genre },
+      replacements: {
+        keyword: keywordReplacement,
+        genre: genre,
+        limit: limit,
+        offset: offset,
+      },
       type: QueryTypes.SELECT,
     });
-    return { status: 200, message: result };
+    const recordCount = await Book.count({
+      where: {
+        title: { [Op.iLike]: keywordReplacement },
+        genre: genre,
+      },
+    });
+    const pageNumber =
+      recordCount % limit == 0
+        ? recordCount / limit
+        : Math.floor(recordCount / limit) + 1;
+    const paging = { page: page, pageNumber: pageNumber };
+    return { status: 200, message: { result, ...paging } };
   }
-  async searchBookByGenre(genre) {
+
+  async getBookByGenre(genre, page) {
     const query = `SELECT b.id, b.title, b.genre, b."publishedDate", b.image, b.price, b."oldPrice", s."quantity" as "countInStock", b.author, b.publisher, AVG(r."rating") as "rating", COUNT(r."id") as "numReviews", b."description" 
     FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId" 
     LEFT JOIN public."Stocks" s ON b.id = s."productId"
     WHERE b.genre = :genre
     GROUP BY b.id, s."quantity" 
-    ORDER BY b.id ASC`;
+    ORDER BY b.id ASC
+    LIMIT :limit OFFSET :offset`;
+    const limit = this.PAGE_LIMT;
+    const offset = page == 1 ? 0 : limit * page;
     const result = await sequelize.query(query, {
-      replacements: { genre: genre },
+      replacements: { genre: genre, limit: limit, offset: offset },
       type: QueryTypes.SELECT,
     });
-    return { status: 200, message: result };
+    const recordCount = await Book.count({ where: { genre: genre } });
+    const pageNumber =
+      recordCount % limit == 0
+        ? recordCount / limit
+        : Math.floor(recordCount / limit) + 1;
+    const paging = { page: page, pageNumber: pageNumber };
+    return { status: 200, message: { result, ...paging } };
   }
   async getAllGenre() {
     const query = `SELECT DISTINCT b.genre
