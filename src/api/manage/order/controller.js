@@ -4,6 +4,8 @@ const service = require("./service");
 
 router.get("/", getAll);
 router.get("/customer/:username", getOrderByCustomer)
+router.get("/detail/:id", getOrderDetail);
+
 router.get("/:id", getOne);
 router.post("/", addOne);
 router.put("/", updateOne);
@@ -57,6 +59,15 @@ async function deleteOne(req, res) {
 async function getOrderByCustomer(req, res) {
   try {
     const respond = await service.getOrderByCustomer(req.params.username);
+    res.status(respond.status).json(respond);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+async function getOrderDetail(req, res) {
+  try {
+    const respond = await service.getOrderDetail(req.params.id);
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
