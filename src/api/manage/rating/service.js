@@ -1,6 +1,7 @@
 const { QueryTypes } = require("sequelize");
 const { Sequelize } = require("../../../common/core/sequelize");
 const { sequelize } = require("../../../common/core/sequelize");
+const Item = require("../../../models/item");
 const Rating = require("../../../models/rating");
 const Service = require("../../../common/service");
 
@@ -22,7 +23,13 @@ class RatingService extends Service {
     return { status: 200, message: result };
   }
 
-  async getRatingPermission(productId, username) {}
+  async getRatingPermission(productId, username) {
+    const check = await Item.findOne({
+      where: { productId: productId, customer: username, status: 1 },
+    });
+    if (check) return { status: 200, message: true };
+    else return { status: 401, message: "Unauthorized to add a rating" };
+  }
 }
 
 module.exports = new RatingService(Rating);

@@ -266,7 +266,7 @@
 									"variable": [
 										{
 											"key": "page",
-											"value": "1"
+											"value": "2"
 										}
 									]
 								}
@@ -548,6 +548,39 @@
 										{
 											"key": "productId",
 											"value": "6"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get rating permission",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/manage/rating/permission/:productId/:username",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"manage",
+										"rating",
+										"permission",
+										":productId",
+										":username"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "6"
+										},
+										{
+											"key": "username",
+											"value": "customer1"
 										}
 									]
 								}
@@ -1666,16 +1699,47 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:3000/manage/customer/login",
+									"raw": "http://localhost:3000/browse/customer/login",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"manage",
+										"browse",
 										"customer",
 										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "check authorization",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE2MTcxMTQwMDQsImV4cCI6MTYxNzcxODgwNH0.u6lQve1qebgKMXrP2Gs5QdaaX28gXpKjX0phyTyl2kI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/browse/customer/decode",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"browse",
+										"customer",
+										"decode"
 									]
 								}
 							},
@@ -1836,6 +1900,71 @@
 										{
 											"key": "genre",
 											"value": "Criminal"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Rating",
+					"item": [
+						{
+							"name": "get one rating",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/manage/account/:username",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"manage",
+										"account",
+										":username"
+									],
+									"variable": [
+										{
+											"key": "username",
+											"value": "testerman4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all reviews of book",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/browse/rating/book/:productId/:page",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"browse",
+										"rating",
+										"book",
+										":productId",
+										":page"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "6"
 										},
 										{
 											"key": "page",
