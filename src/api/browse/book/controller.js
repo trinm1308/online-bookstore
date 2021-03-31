@@ -14,7 +14,7 @@ router.get("/one/:id", getOneWithReviews);
 
 async function getAllWithReviews(req, res) {
   try {
-    const respond = await service.getAllWithReviews(parseInt(req.params.top));
+    const respond = await service.getAllWithReviews(parseInt(req.params.page));
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
