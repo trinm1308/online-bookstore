@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const service = require("./service");
 
-router.get("/top/:field/:top", getTopDESC);
+router.get("/top/:top", getTopReview)
 router.get("/genre", getAllGenre);
 router.get("/genre/:genre/:page", getBookByGenre);
 
@@ -21,12 +21,9 @@ async function getAllWithReviews(req, res) {
   }
 }
 
-async function getTopDESC(req, res) {
+async function getTopReview(req, res) {
   try {
-    const respond = await service.getTopDESC(
-      req.params.field,
-      parseInt(req.params.top)
-    );
+    const respond = await service.getTopReview(parseInt(req.params.top));
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);
