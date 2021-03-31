@@ -38,7 +38,7 @@ class RatingService extends Service {
     });
     if (existingRating) {
       result = await Rating.update(
-        { content: rating.content },
+        { rating: rating.rating, content: rating.content },
         { where: { id: existingRating.id } }
       );
     } else {
