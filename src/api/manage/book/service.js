@@ -39,6 +39,20 @@ class BookService extends Service {
     const paging = { page: page, pageNumber: pageNumber };
     return { status: 200, message: { result, ...paging } };
   }
+
+  async getTopReview(top) {
+    const query = `SELECT TOP :top b.id, b.title, b.genre, b."publishedDate", b.image, b.price, b."oldPrice", s."quantity" as "countInStock", b.author, b.publisher, AVG(r."rating") as "rating", COUNT(r."id") as "numReviews", b."description" 
+    FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId" 
+    LEFT JOIN public."Stocks" s ON b.id = s."productId"
+    GROUP BY b.id, s."quantity" 
+    ORDER BY rating`;
+    const result = await sequelize.query(query, {
+      replacements: { top: top },
+      type: QueryTypes.SELECT,
+    });
+    return { status: 200, message: result };
+  }
+
   async getOneWithReviews(id) {
     const query = `SELECT b.id, b.title, b.genre, b."publishedDate", b.image, b.price, b."oldPrice", s."quantity" as "countInStock", b.author, b.publisher, AVG(r."rating") as "rating", COUNT(r."id") as "numReviews", b."description" 
     FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId" 
