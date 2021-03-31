@@ -15,6 +15,11 @@ class OrderService extends Service {
     const orderItems = order.items;
     for (const item of orderItems) {
       await Item.update({ status: 1 }, { where: { id: item } });
+      const update = await Item.find({ where: { id: item } });
+      await Stock.increment(
+        { quantity: -update.quantity },
+        { where: { productId: update.productId } }
+      );
     }
     return { status: 200, message: result };
   }
