@@ -1,5 +1,7 @@
 const { QueryTypes } = require("sequelize");
 const { sequelize } = require("../../../common/core/sequelize");
+const Item = require("../../../models/item");
+const Stock = require("../../../models/stock");
 const Order = require("../../../models/order");
 const Service = require("../../../common/service");
 
@@ -12,13 +14,7 @@ class OrderService extends Service {
     const result = await Order.create(order);
     const orderItems = order.items;
     for (const item of orderItems) {
-      const query = `UPDATE public."Items"
-      SET status = 1
-      WHERE id = :id`;
-      const itemDetail = await sequelize.query(query, {
-        replacements: { id: item },
-        type: QueryTypes.SELECT,
-      });
+      await Item.update({ status: 1 }, { where: { id: item.id } });
     }
     return { status: 200, message: result };
   }

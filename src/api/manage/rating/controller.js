@@ -5,6 +5,7 @@ const service = require("./service");
 router.get("/", getAll);
 router.get("/permission/:productId/:username", getRatingPermission);
 router.get("/book/:productId", getAllReviewsOfBook);
+
 router.get("/:id", getOne);
 router.post("/", addOne);
 router.put("/", updateOne);

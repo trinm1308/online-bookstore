@@ -34,10 +34,10 @@ class RatingService extends Service {
   async addOne(rating) {
     let result;
     const existingRating = await Rating.findOne({
-      where: { customer: item.customer, account: rating.account },
+      where: { productId: rating.productId, account: rating.account },
     });
-    if (existingAccount) {
-      result = Rating.update(
+    if (existingRating) {
+      result = await Rating.update(
         { content: rating.content },
         { where: { id: existingRating.id } }
       );
@@ -45,6 +45,29 @@ class RatingService extends Service {
       result = await Rating.create(rating);
     }
     return { status: 200, message: result };
+  }
+
+  async getAllReviewsOfBook(productId, page) {
+    const limit = this.PAGE_LIMIT;
+    const offset = page == 1 ? 0 : limit * (page - 1);
+    const recordCount = await Rating.count({
+      where: {
+        productId: productId,
+      },
+    });
+    const result = await Rating.findAll({
+      where: {
+        productId: productId,
+      },
+      limit: limit,
+      offset: offset,
+    });
+    const pageNumber =
+      recordCount % limit == 0
+        ? recordCount / limit
+        : Math.floor(recordCount / limit) + 1;
+    const paging = { page: page, pageNumber: pageNumber };
+    return { status: 200, message: { result, ...paging } };
   }
 }
 
