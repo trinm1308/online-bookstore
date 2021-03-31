@@ -47,7 +47,6 @@ class BookService extends Service {
     GROUP BY b.id, s."quantity" 
     ORDER BY rating`;
     const result = await sequelize.query(query, {
-      replacements: { top: top },
       limit: top,
       type: QueryTypes.SELECT,
     });
