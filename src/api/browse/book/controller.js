@@ -3,7 +3,7 @@ const router = express.Router();
 const service = require("./service");
 
 router.get("/top/rating/:top", getTopRatingDESC)
-router.get("/top/date/:top", getTopDateDESC)
+router.get("/top/date/:top", getTopDateASC)
 router.get("/genre", getAllGenre);
 router.get("/genre/:genre/:page", getBookByGenre);
 
@@ -31,9 +31,9 @@ async function getTopRatingDESC(req, res) {
   }
 }
 
-async function getTopDateDESC(req, res) {
+async function getTopDateASC(req, res) {
   try {
-    const respond = await service.getTopDateDESC(parseInt(req.params.top));
+    const respond = await service.getTopDateASC(parseInt(req.params.top));
     res.status(respond.status).json(respond);
   } catch (error) {
     res.status(500).json(error);

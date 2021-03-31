@@ -55,13 +55,13 @@ class BookService extends Service {
     return { status: 200, message: result };
   }
 
-  async getTopDateDESC(top) {
+  async getTopDateASC(top) {
     const query = `SELECT b.id, b.title, b.genre, b."publishedDate", b.image, b.price, b."oldPrice", s."quantity" as "countInStock", b.author, b.publisher, AVG(r."rating") as "rating", COUNT(r."id") as "numReviews", b."description", b."createdAt" as "date"  
     FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId" 
     LEFT JOIN public."Stocks" s ON b.id = s."productId"
     WHERE rating IS NOT NULL
     GROUP BY b.id, s."quantity"
-    ORDER BY date DESC
+    ORDER BY date ASC
     LIMIT :top`;
     const result = await sequelize.query(query, {
       replacements: { top: top },
