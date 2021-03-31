@@ -14,7 +14,7 @@ class OrderService extends Service {
     const result = await Order.create(order);
     const orderItems = order.items;
     for (const item of orderItems) {
-      await Item.update({ status: 1 }, { where: { id: item.id } });
+      await Item.update({ status: 1 }, { where: { id: item } });
     }
     return { status: 200, message: result };
   }
