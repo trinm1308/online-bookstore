@@ -45,7 +45,7 @@ class BookService extends Service {
     FROM public."Books" b LEFT JOIN public."Ratings" r ON b.id = r."productId" 
     LEFT JOIN public."Stocks" s ON b.id = s."productId"
     GROUP BY b.id, s."quantity" 
-    ORDER BY rating DESC
+    ORDER BY rating ASC
     LIMIT :top`;
     const result = await sequelize.query(query, {
       replacements: { top: top },
