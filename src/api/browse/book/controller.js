@@ -23,7 +23,7 @@ async function getAllWithReviews(req, res) {
 
 async function getTopDESC(req, res) {
   try {
-    const respond = await service.getTop(
+    const respond = await service.getTopDESC(
       req.params.field,
       parseInt(req.params.top)
     );
